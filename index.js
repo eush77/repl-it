@@ -6,6 +6,8 @@ var path = require('path');
 var xtend = require('xtend');
 var camelCase = require('camel-case');
 var pkginfo = require('pkginfo');
+var home = require('home-dir');
+var replHistory = require('repl.history');
 
 var Replit = module.exports = function(opts){
   if (!(this instanceof Replit)) {
@@ -46,6 +48,8 @@ var Replit = module.exports = function(opts){
           prompt: projectName+'> ',
           useGlobal: true
         });
+
+        replHistory(r, home('/.node_history'));
 
         Object.keys(pkgs).forEach(function(p){
           r.context[p] = pkgs[p];
